@@ -262,7 +262,7 @@ def create_vision_messages(
     
     return messages
 
-
+# prompt 생성 하는 부분
 def create_text_messages(
     time_series,
     few_shots=False,
