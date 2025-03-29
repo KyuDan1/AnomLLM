@@ -9,6 +9,7 @@ def parse_arguments():
     parser.add_argument('--variant', type=str, default='1shot-vision', help='Variant type')
     parser.add_argument('--model', type=str, default='internvlm-76b', help='Model name')
     parser.add_argument('--data', type=str, default='point', help='Data name')
+    parser.add_argument('--localization', type=str, default=False, help='Localization Experiment')
     return parser.parse_args()
 
 
@@ -18,6 +19,7 @@ def online_AD_with_retries(
     request_func: callable,
     variant: str = "standard",
     num_retries: int = 4,
+    localization = False,
 ):
     import json
     import time
@@ -62,10 +64,17 @@ def online_AD_with_retries(
         # Perform anomaly detection with exponential backoff
         for attempt in range(num_retries):
             try:
-                request = request_func(
+                if localization:
+                    request = request_func(
+                    i-1,
                     eval_dataset.series[i - 1],
                     train_dataset
                 )
+                else:
+                    request = request_func(
+                        eval_dataset.series[i - 1],
+                        train_dataset
+                    )
                 response = send_openai_request(request, model_name)
                 # Write the result to jsonl
                 with open(jsonl_fn, 'a') as f:
@@ -103,6 +112,7 @@ def main():
         data_name=args.data,
         request_func=batch_api_configs[args.variant],
         variant=args.variant,
+        localization=args.localization,
     )
 
 
