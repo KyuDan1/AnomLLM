@@ -171,3 +171,5 @@ src/vus.ipynb
 /.vscode/
 *.pdf
 *.tex
+
+credentials.*

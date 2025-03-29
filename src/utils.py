@@ -42,6 +42,7 @@ def interval_to_vector(interval, start=0, end=1000):
         if type(entry) is not dict:
             assert len(entry) == 2
             entry = {'start': entry[0], 'end': entry[1]}
+            print(entry)
         entry['start'] = int(entry['start'])
         entry['end'] = int(entry['end'])
         entry['start'] = np.clip(entry['start'], start, end)
@@ -505,6 +506,7 @@ def load_results(result_fn, raw=False, postprocess_func: callable = None):
             info = json.loads(line)
             if raw:
                 results.append(info)
+                #print('raw appended')
             else:
                 try:
                     response_parsed = parse_output(postprocess_func(info['response']))
