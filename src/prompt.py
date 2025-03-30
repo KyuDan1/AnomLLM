@@ -40,18 +40,6 @@ The values appear to follow a consistent pattern without sudden <|abnormal_summa
 LIMIT_PROMPT = "Assume there are up to 5 anomalies. "
 
 
-def make_localization_prompt(anomal_data):
-        
-    LOCALIZATION_PROMPT = f"""Find the indices of the anomalous data points {anomal_data} in the above dataset,
-    where (x,y) represents the data points with y being the time series values and x being the index.
-    List one by one, in JSON format. 
-    If there are no anomalies, answer with an empty list [].
-
-    Output template:
-    [{"start": ..., "end": ...}, {"start": ..., "end": ...}...]
-    """
-    return LOCALIZATION_PROMPT
-
 def scale_x_axis(data, scale_factor):
     """
     Scale the x-axis of a 1D numpy array.
@@ -273,75 +261,15 @@ def create_vision_messages(
         messages = history + messages
     
     return messages
-from data.synthetic import SyntheticDataset
-from utils import  collect_results
 
-# prompt 생성 하는 부분
+
 def create_text_messages(
-    idx, 
     time_series,
     few_shots=False,
     cot=False,
     calc=None,
-    localization=None,
-    model_name = 'gemini-1.5-flash (0shot-text)',
-    data_name = 'point',
     series_args={},
-
 ):
-    if localization:
-        
-        data_dir = f'/home/kyudan/AnomLLM/data/synthetic/{data_name}/eval/'
-        eval_dataset = SyntheticDataset(data_dir)
-        eval_dataset.load()
-        directory = f'/home/kyudan/AnomLLM/results/synthetic/{data_name}'
-        
-        series = eval_dataset[idx][1].numpy() # eval dataset의 문제 series.
-        anomaly_locations = eval_dataset[idx][0].numpy() # eval dataset의 gt가 될 것.
-
-        
-#eval dataset 만으로 질문을 만들것이기 때문에 results가 나올필요가 없음!!!
-        
-        
-        
-        
-        
-        
-        
-        print(anomaly_locations)
-        raw_results = collect_results(directory, raw=True)
-        print(raw_results.keys())
-        print(model_name)
-
-        
-
-        raw_results = {k: v[idx] for k, v in raw_results.items()}
-        print(raw_results.keys())
-        
-        raw_text = raw_results[str(model_name)]['request']['messages'][0]['content']
-        #print(raw_text = raw_results[str(model_name)]['request']['messages'][0]['content'][0]['text'])
-        data_part = raw_text.split("\n\n")[0]
-        data_part_list = data_part.split(' ')
-
-        idx_data_list  = []
-        for i, data in enumerate(data_part_list):
-            idx_data_list.append((i,data))
-
-        formatted_items = []
-        for item in idx_data_list:
-            formatted_item = f"({item[0]},{item[1]})"
-            formatted_items.append(formatted_item)
-        idx_data = ', '.join(formatted_items)
-
-        anomaly_locations = eval_dataset[idx][0].squeeze().tolist() # eval dataset의 gt가 될 것.
-
-
-        anomal_data = []
-        for i in range(int(anomaly_locations[0]), int(anomaly_locations[1])+1):
-            anomal_data.append(idx_data_list[i])
-        values = [item[1] for item in anomal_data]
-        anomal_seq = ' '.join(values)
-
     if "scale" not in series_args:
         series_args["scale"] = 1.0
     scale = series_args["scale"]
@@ -349,10 +277,9 @@ def create_text_messages(
     messages = [
         {
             "role": "user",
-            "content": idx_data if localization else time_series_to_str(time_series, **series_args) #localization 추가
+            "content": time_series_to_str(time_series, **series_args)
             + "\n\n"
             + LIMIT_PROMPT
-            + (make_localization_prompt(anomal_seq) if localization else "") #localization 추가
             + (PROMPT if not cot else COT_PROMPT),
         }
     ]
@@ -407,7 +334,6 @@ def create_text_messages(
 
 
 def create_openai_request(
-    idx,
     time_series,
     few_shots=False, 
     vision=False,
@@ -417,17 +343,9 @@ def create_openai_request(
     calc=None,       # Enforce wrong calculation
     series_args={},  # Arguments for time_series_to_str
     image_args={},   # Arguments for time_series_to_image
-    localization = False,
-    model_name = 'gpt-4o-mini (0shot-text)',
-    data_name = None,
 ):
     if vision:
         messages = create_vision_messages(time_series, few_shots, cot, calc, image_args)
-    
-    if localization:
-        messages = create_text_messages(idx, time_series, few_shots, cot, calc, localization,
-                                        model_name, data_name, series_args)
-    
     else:
         messages = create_text_messages(time_series, few_shots, cot, calc, series_args)
     

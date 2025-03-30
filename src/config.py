@@ -2,19 +2,7 @@ from prompt import create_openai_request
 
 
 def create_batch_api_configs():
-    # series 가 하나의 series임.
     return {
-        '0shot-text-localization': lambda idx, series, train_dataset: create_openai_request(
-            idx,
-            series,
-            vision=False,
-            few_shots=train_dataset.few_shots(num_shots=0),
-            
-            localization=True,
-            model_name='gemini-1.5-flash (0shot-text)',
-            data_name='point',
-            
-        ),
         '1shot-vision': lambda series, train_dataset: create_openai_request(
             series,
             vision=True,
