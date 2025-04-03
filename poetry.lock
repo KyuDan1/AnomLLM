@@ -1896,6 +1896,17 @@ files = [
 traitlets = "*"
 
 [[package]]
+name = "mayplotlib"
+version = "0.0.1"
+description = "A very basic exam library"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "mayplotlib-0.0.1.tar.gz", hash = "sha256:2d7da41ccf45653a68f664341e47accd35a6972bb78c1645104765731956305e"},
+]
+
+[[package]]
 name = "mistune"
 version = "3.0.2"
 description = "A sane and fast Markdown parser with useful plugins and renderers"
@@ -4001,4 +4012,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10,<3.11"
-content-hash = "9dbfbebeb71ec09608db0a6147c40434060ad7e338aefb7974227c660529838f"
+content-hash = "f213450e27a586ec91eb5ef47a600f2fd71d352694a00f4c0a3b348d2df28c2a"

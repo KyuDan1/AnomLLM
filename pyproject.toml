@@ -23,6 +23,7 @@ beautifulsoup4 = "4.12.3"
 networkx = "3.3"
 s5cmd = "^0.2.0"
 ipykernel = "^6.29.5"
+mayplotlib = "^0.0.1"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "6.29.5"
