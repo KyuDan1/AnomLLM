@@ -1,0 +1,10 @@
+Metric,Value
+Exact Match Ratio,0.4375
+Hamming Loss,0.199375
+Jaccard Score,0.728125
+Micro-Precision,0.8013698630136986
+Micro-Recall,0.8288075560802833
+Micro-F1,0.8148578061520604
+Macro-Precision,0.8213786768475244
+Macro-Recall,0.8214164904862579
+Macro-F1,0.7993525134002382
