@@ -1,0 +1,5 @@
+Label,Accuracy
+Trend,0.77
+Seasonality,1.0
+Noise,0.7025
+Anomalies,0.7525
