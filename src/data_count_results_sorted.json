@@ -1,0 +1,62 @@
+{
+  "filenames": [
+    "component_2_num_samples_index-100.jsonl",
+    "component_2_num_samples_index-200.jsonl",
+    "component_2_num_samples_index-300.jsonl",
+    "component_2_num_samples_index-400.jsonl",
+    "component_2_num_samples_index-500.jsonl",
+    "component_2_num_samples_index-600.jsonl",
+    "component_2_num_samples_index-700.jsonl",
+    "component_2_num_samples_index-800.jsonl",
+    "component_2_num_samples_index-900.jsonl",
+    "component_2_num_samples_index-1000.jsonl"
+  ],
+  "input_data_counts": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000
+  ],
+  "output_data_counts_avg": [
+    125.6,
+    241.4,
+    361.9,
+    742.4,
+    419.9,
+    365.6,
+    360.4,
+    430.4,
+    592.4,
+    398.9
+  ],
+  "output_data_counts_min": [
+    113,
+    217,
+    344,
+    367,
+    364,
+    364,
+    325,
+    364,
+    564,
+    363
+  ],
+  "output_data_counts_max": [
+    144,
+    264,
+    366,
+    964,
+    563,
+    377,
+    367,
+    464,
+    845,
+    545
+  ]
+}

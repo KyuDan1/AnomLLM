@@ -1,0 +1,38 @@
+{
+  "filenames": [
+    "component_2_num_samples_index-900.jsonl",
+    "component_2_num_samples_index-700.jsonl",
+    "component_2_num_samples_index-300.jsonl",
+    "component_2_num_samples_index-800.jsonl",
+    "component_2_num_samples_index-1000.jsonl",
+    "component_2_num_samples_index-400.jsonl",
+    "component_2_num_samples_index-100.jsonl",
+    "component_2_num_samples_index-200.jsonl",
+    "component_2_num_samples_index-600.jsonl",
+    "component_2_num_samples_index-500.jsonl"
+  ],
+  "input_data_counts": [
+    900,
+    700,
+    300,
+    800,
+    1000,
+    400,
+    100,
+    200,
+    600,
+    500
+  ],
+  "output_data_counts_avg": [
+    592.4,
+    360.4,
+    361.9,
+    430.4,
+    398.9,
+    742.4,
+    125.6,
+    241.4,
+    365.6,
+    419.9
+  ]
+}
